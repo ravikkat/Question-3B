@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumerwebapi
+spec:
+  selector:
+    matchLabels:
+      app: consumerwebapi
+  template:
+    metadata:
+      labels:
+        app: consumerwebapi
+    spec:
+      containers:
+      - name: consumerwebapi
+        image: ravikkat/consumerwebapi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumerwebapi
+spec:
+  type: NodePort
+  selector:
+    app: consumerwebapi
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 31500
+    name: "managementsconsume"
+  
